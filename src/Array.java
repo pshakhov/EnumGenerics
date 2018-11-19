@@ -1,52 +1,59 @@
+/*
+/* Вывести элемент массива в формате [<номер элемента> = <вызов метода toString()>]
+/* Вывести массив, поменяв два элемента местами
+/* Вывести перевернутый массив
+*/
+
 import java.util.Arrays;
 
- class Array<T>{
+public class Array {
 
-    private T val;
+    private static String[] array = {"Съешь", "еще", "этих",
+            "мягких", "французских", "булок"}; /* инициализируем массив объектов */
 
-    public Array(T arg) {
-        val = arg;
+    /** метод вывода массива. */
+    private static <T> void arrayPrint(T[] tempArr) {
+
+        for (Object i: array) {
+            System.out.print(i + " ");
+        }
+        System.out.println();
     }
 
-    public String toString() {
-        return "{" + val + "}";
+    /** метод вывода одного элемента в указанном формате. */
+    public static <T> void elementPrint(T[] array, int index) {
+        System.out.println(
+                String.format("[%d-й элемент = %s]", index,
+                        array[index].toString())
+        );
     }
 
-    public T getValue() {
-        return val;
+    /** метод перемены двух элементов массива местами. */
+    private static <T> void elementsSwap(T[] array,
+                                         int i, int j) {
+            T temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
     }
-}
 
- class Printer {
+    /** метод разворота массива. */
+    private static <T> void arrayReverse(T[] array) {
+        for (int i = 0, j = array.length - 1;
+             i < array.length / 2; i++, j--) {
+            elementsSwap(array, i, j);
+        }
+    }
 
     public static void main(String[] args) {
-        Object[] array = {1, 2, 3, 4, 5};
+        arrayPrint(array);
 
-        for (Object element: array) {
-            System.out.println(element);
-        }
+        elementPrint(array, 0);
+
+        elementsSwap(array, 3, 4);
+        arrayPrint(array);
+
+        arrayReverse(array);
+        arrayPrint(array);
     }
-    /* public static void main(String[] arg) {
-
-        int size = 10;
-        Object[] arr = new Object[size];
-
-        Printer printer = new Printer();
-        //String[] colors = {"red", "orange", "yellow", "green", "blue"};
-        //Integer[] numbers = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-
-        //printer.print(arr[1]);
-
-        //printer.<Object>print(arr);
-        //printer.<Integer>print(numbers);
-    } */
 }
 
-/*class Printer{
-
-    public <T> void print(T[] items){
-        for(T item: items){
-            System.out.println(Arrays.toString(item));
-
-        }
-    } */
